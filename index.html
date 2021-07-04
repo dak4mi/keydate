@@ -2,184 +2,189 @@
 <html class="no-js" lang="de">
 
 <head>
-  <meta charset="utf-8">
-  <title>Nina + Karsten</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    #body-wrap {
-      max-height: calc(100vh - 50px);
-      max-width: 100%;
-      padding-left: 20vw;
-      padding-right: 20vw;
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      position: relative;
-    }
+    <meta charset="utf-8">
+    <title>Nina + Karsten</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #body-wrap {
+            max-height: calc(100vh - 50px);
+            max-width: 100%;
+            padding-left: 20vw;
+            padding-right: 20vw;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            position: relative;
+        }
 
-    #card-wrap {
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      position: relative;
-      width: 100%;
-    }
+        #card-wrap {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+        }
 
-    .page {
-      display: none;
-      opacity: 0;
-      align-items: stretch;
-      justify-content: center;
-      max-width: 100%;
-    }
+        .page {
+            display: none;
+            opacity: 0;
+            align-items: stretch;
+            justify-content: center;
+            max-width: 100%;
+        }
 
-    .page.active {
-      opacity: 1;
-      display: flex;
-    }
+        .page.active {
+            opacity: 1;
+            display: flex;
+        }
 
-    .page.active:not(.init) {
-      -webkit-animation: fadein 2s linear forwards;
-      animation: fadein 2s linear forwards;
-    }
+        .page.active:not(.init) {
+            -webkit-animation: fadein 2s linear forwards;
+            animation: fadein 2s linear forwards;
+        }
 
-    .card {
-      display: grid;
-    }
+        .card {
+            display: grid;
+            border: black 1px;
+        }
 
-    .arrowbox {
-      position: absolute;
-      top: calc(50% - 5px);
-      cursor: pointer;
-      width: 50px;
-      height: 50px;
-      z-index: 5
-    }
+        .arrowbox {
+            position: absolute;
+            top: calc(50% - 5px);
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            z-index: 5
+        }
 
-    .arrowbox.right {
-      right: 0;
-    }
+        .arrowbox.right {
+            right: 0;
+        }
 
-    .arrowbox.left {
-      left: 0;
-    }
+        .arrowbox.left {
+            left: 0;
+        }
 
-    .arrow {
-      margin-top: 10px;
-      border: solid lightgray;
-      border-width: 0 10px 10px 0;
-      display: inline-block;
-      padding: 10px;
-    }
+        .arrow {
+            margin-top: 10px;
+            border: solid lightgray;
+            border-width: 0 10px 10px 0;
+            display: inline-block;
+            padding: 10px;
+        }
 
-    .arrowbox.active > .arrow {
-      border: solid black;
-      border-width: 0 10px 10px 0;
-    }
+        .arrowbox.active > .arrow {
+            border: solid black;
+            border-width: 0 10px 10px 0;
+        }
 
-    .right-arrow {
-      transform: rotate(-45deg);
-      -webkit-transform: rotate(-45deg);
-    }
+        .right-arrow {
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
 
-    .left-arrow {
-      transform: rotate(135deg);
-      -webkit-transform: rotate(135deg);
-    }
+        .left-arrow {
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+        }
 
-    .printview {
-      display: none;
-    }
+        .printview {
+            display: none;
+        }
 
-    #print {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-    }
-    #print:hover{
-      border-radius: 5px;
-      background: #eee;
-    }
-    #print svg{
+        #print {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
 
-      height: 30px;
-      width: 30px;
-    }
-    @-webkit-keyframes fadein {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
+        #print:hover {
+            border-radius: 5px;
+            background: #eee;
+        }
 
-    @keyframes fadein {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
+        #print svg {
 
-    @media print {
+            height: 30px;
+            width: 30px;
+        }
 
-      @page {
-        size: A4;
-        margin: 0mm;
-        size: landscape
-      }
+        @-webkit-keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
 
-      body {
-        margin: 5mm;
-        padding: 0;
-        min-width: calc(100vw - 20mm);
-        height: calc(100vh - 10mm);
-      }
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
 
-      #body-wrap {
-        display: none;
-      }
+        @media print {
 
-      .printview {
-        display: block;
-      }
+            @page {
+                size: A4;
+                margin: 0mm;
+                size: landscape
+            }
 
-      .printview img {
-        display: block;
-        width: 50%;
-        float: left;
-      }
+            body {
+                margin: 5mm;
+                padding: 0;
+                min-width: calc(100vw - 20mm);
+                height: calc(100vh - 10mm);
+            }
 
-    }
-  </style>
+            #body-wrap {
+                display: none;
+            }
+
+            .printview {
+                display: block;
+            }
+
+            .printview img {
+                display: block;
+                width: 50%;
+                float: left;
+            }
+
+        }
+    </style>
 </head>
 
 <body>
 <div id="body-wrap">
-  <div id="card-wrap">
-    <div class="arrowbox left" id="left">
-      <i id="left" class="arrow left-arrow"></i>
-    </div>
-    <div class="arrowbox right active" id="right">
-      <i class="arrow right-arrow"></i>
-    </div>
-    <div id="first-page" class="page active init">
-      <img src="Hochzeitskarte_Nina_Karsten_Seite1.png" class="card">
-    </div>
-    <div id="second-page" class="page">
-      <img src="Hochzeitskarte_Nina_Karsten_Seite2.png" class="card">
-    </div>
-    <button id="print" onclick="window.print();return false;"/>
-    <?xml version="1.0" encoding="iso-8859-1"?>
-    <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-         viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
+    <div id="card-wrap">
+        <div class="arrowbox left" id="left">
+            <i id="left" class="arrow left-arrow"></i>
+        </div>
+        <div class="arrowbox right active" id="right">
+            <i class="arrow right-arrow"></i>
+        </div>
+        <div id="first-page" class="page active init">
+            <img src="Hochzeitskarte_Nina_Karsten_Seite1.png" class="card">
+        </div>
+        <div id="second-page" class="page">
+            <img src="Hochzeitskarte_Nina_Karsten_Seite2.png" class="card">
+        </div>
+        <button id="print" onclick="window.print();return false;"/>
+        <?xml version="1.0" encoding="iso-8859-1"?>
+        <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+             x="0px" y="0px"
+             viewBox="0 0 490 490" style="enable-background:new 0 0 490 490;" xml:space="preserve">
 <g>
 	<path d="M420.931,104.275h-44.166V0H113.236v104.275H69.069C30.982,104.275,0,136.499,0,176.104v123.732
 		c0,39.615,30.982,71.839,69.069,71.839h33.506V490h284.839V371.675h33.516c38.089,0,69.069-32.224,69.069-71.839V176.104
@@ -187,79 +192,79 @@
 		h243.137V469.149z M469.149,299.836c0,28.109-21.635,50.987-48.218,50.987h-33.516v-81.47H102.576v81.47H69.069
 		c-26.583,0-48.218-22.878-48.218-50.987V176.104c0-28.11,21.635-50.978,48.218-50.978h351.862
 		c26.583,0,48.218,22.867,48.218,50.978V299.836z"/>
-  <rect x="173.997" y="337.975" width="141.997" height="20.852"/>
-  <rect x="173.997" y="395.508" width="141.997" height="20.852"/>
-  <rect x="366.34" y="173.354" width="31.124" height="20.852"/>
+    <rect x="173.997" y="337.975" width="141.997" height="20.852"/>
+    <rect x="173.997" y="395.508" width="141.997" height="20.852"/>
+    <rect x="366.34" y="173.354" width="31.124" height="20.852"/>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
-      <g>
+            <g>
 </g>
 </svg>
-    </button>
-  </div>
+        </button>
+    </div>
 </div>
 <div class="printview">
-  <img src="Hochzeitskarte_Nina_Karsten_Seite1.png" id="printview-image1">
-  <img src="Hochzeitskarte_Nina_Karsten_Seite2.png" id="printview-image2">
+    <img src="Hochzeitskarte_Nina_Karsten_Seite1.png" id="printview-image1">
+    <img src="Hochzeitskarte_Nina_Karsten_Seite2.png" id="printview-image2">
 </div>
 
 <script>
-  const arrows = document.querySelectorAll('.arrowbox');
-  const leftArrow = document.querySelector('#left');
-  const rightArrow = document.querySelector('#right');
-  const firstPage = document.querySelector('#first-page');
-  const secondPage = document.querySelector('#second-page');
+    const arrows = document.querySelectorAll('.arrowbox');
+    const leftArrow = document.querySelector('#left');
+    const rightArrow = document.querySelector('#right');
+    const firstPage = document.querySelector('#first-page');
+    const secondPage = document.querySelector('#second-page');
 
-  arrows.forEach(function (element) {
-    element.addEventListener('click', event => {
-      let otherArrow;
-      let pageToActivate;
-      let pageToDeactivate;
-      if (element === leftArrow) {
-        otherArrow = rightArrow;
-        pageToActivate = firstPage;
-        pageToDeactivate = secondPage;
-      } else {
-        otherArrow = leftArrow;
-        pageToActivate = secondPage;
-        pageToDeactivate = firstPage;
-      }
-      if (element.classList.contains('active')) {
-        element.classList.remove('active')
-        otherArrow.classList.add('active')
-        pageToDeactivate.classList.remove('active')
-        pageToActivate.classList.add('active')
-        document.querySelector('.init').classList.remove('init');
-      }
-    });
-  })
+    arrows.forEach(function (element) {
+        element.addEventListener('click', event => {
+            let otherArrow;
+            let pageToActivate;
+            let pageToDeactivate;
+            if (element === leftArrow) {
+                otherArrow = rightArrow;
+                pageToActivate = firstPage;
+                pageToDeactivate = secondPage;
+            } else {
+                otherArrow = leftArrow;
+                pageToActivate = secondPage;
+                pageToDeactivate = firstPage;
+            }
+            if (element.classList.contains('active')) {
+                element.classList.remove('active')
+                otherArrow.classList.add('active')
+                pageToDeactivate.classList.remove('active')
+                pageToActivate.classList.add('active')
+                document.querySelector('.init').classList.remove('init');
+            }
+        });
+    })
 </script>
 </body>
 

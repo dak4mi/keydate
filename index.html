@@ -49,13 +49,23 @@
             border: darkgray 1px solid;
         }
 
+        a {
+            display: flex;
+            max-width: 1000px;
+            align-items: stretch;
+            justify-content: center
+        }
+
         .arrowbox {
             position: absolute;
             top: calc(50% - 5px);
-            cursor: pointer;
             width: 50px;
             height: 50px;
-            z-index: 5
+            z-index: 5;
+        }
+
+        .arrowbox.active {
+            cursor: pointer;
         }
 
         .arrowbox.right {
@@ -173,11 +183,14 @@
         <div class="arrowbox right active" id="right">
             <i class="arrow right-arrow"></i>
         </div>
-        <div id="first-page" class="page active init">
+        <div data-index="0" class="page active init">
             <img src="Hochzeitskarte_Nina_Karsten_Seite1.png" class="card">
         </div>
-        <div id="second-page" class="page">
+        <div data-index="1" class="page">
             <img src="Hochzeitskarte_Nina_Karsten_Seite2.png" class="card">
+        </div>
+        <div data-index="2" class="page">
+            <a target="_blank" href="https://filestore.servicelogin.cloud/s/2gkEWNpHXzxYkqN"><img src="ASTOR.png" class="card"></a>
         </div>
         <button id="print" onclick="window.print();return false;"/>
         <?xml version="1.0" encoding="iso-8859-1"?>
@@ -239,29 +252,43 @@
     const arrows = document.querySelectorAll('.arrowbox');
     const leftArrow = document.querySelector('#left');
     const rightArrow = document.querySelector('#right');
-    const firstPage = document.querySelector('#first-page');
-    const secondPage = document.querySelector('#second-page');
+
+    const minIndex = 0;
+    const maxIndex = document.querySelectorAll('.page').length-1;
+    let currentIndex = 0;
 
     arrows.forEach(function (element) {
         element.addEventListener('click', event => {
-            let otherArrow;
-            let pageToActivate;
-            let pageToDeactivate;
-            if (element === leftArrow) {
-                otherArrow = rightArrow;
-                pageToActivate = firstPage;
-                pageToDeactivate = secondPage;
-            } else {
-                otherArrow = leftArrow;
-                pageToActivate = secondPage;
-                pageToDeactivate = firstPage;
+            if (element === rightArrow) {
+                if (currentIndex !== maxIndex) {
+                    pageToDeactivate = document.querySelector(`.page[data-index="${currentIndex}"]`)
+                    currentIndex++
+                    pageToActivate = document.querySelector(`.page[data-index="${currentIndex}"]`)
+                } else {
+                    return
+                }
             }
-            if (element.classList.contains('active')) {
-                element.classList.remove('active')
-                otherArrow.classList.add('active')
-                pageToDeactivate.classList.remove('active')
-                pageToActivate.classList.add('active')
-                document.querySelector('.init').classList.remove('init');
+            if (element === leftArrow) {
+                if (currentIndex !== minIndex) {
+                    pageToDeactivate = document.querySelector(`.page[data-index="${currentIndex}"]`)
+                    currentIndex--
+                    pageToActivate = document.querySelector(`.page[data-index="${currentIndex}"]`)
+                } else {
+                    return
+                }
+            }
+            pageToDeactivate.classList.remove('active')
+            pageToActivate.classList.add('active')
+
+            if (currentIndex === minIndex) {
+                leftArrow.classList.remove('active')
+            } else {
+                leftArrow.classList.add('active')
+            }
+            if (currentIndex === maxIndex) {
+                rightArrow.classList.remove('active')
+            } else {
+                rightArrow.classList.add('active')
             }
         });
     })
